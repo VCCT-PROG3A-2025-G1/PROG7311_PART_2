@@ -1,0 +1,47 @@
+﻿@model IEnumerable<PROG7311_PART_2.Models.Product>
+
+<h2>All Products</h2>
+
+<form method="get" asp-action="Index" class="row g-3 mb-4">
+    <div class="col-md-3">
+        <input type="text" name="farmerName" class="form-control" placeholder="Farmer Name" />
+    </div>
+    <div class="col-md-3">
+        <input type="text" name="productType" class="form-control" placeholder="Product Type" />
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="from" class="form-control" placeholder="From Date" />
+    </div>
+    <div class="col-md-2">
+        <input type="date" name="to" class="form-control" placeholder="To Date" />
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Product Name</th>
+            <th>Farmer Name</th>
+            <th>Category</th>
+            <th>Production Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Farmer.Name</td>
+                <td>@product.Category</td>
+                <td>@product.ProductionDate.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a asp-controller="Product" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Product" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>

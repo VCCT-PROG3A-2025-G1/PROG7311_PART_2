@@ -1,0 +1,44 @@
+﻿@model PROG7311_PART_2.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Edit Product";
+}
+
+<h2>Edit Product</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Product.Id" />
+
+    <div class="form-group">
+        <label asp-for="Product.Name" class="control-label"></label>
+        <input asp-for="Product.Name" class="form-control" />
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.Category" class="control-label"></label>
+        <input asp-for="Product.Category" class="form-control" />
+        <span asp-validation-for="Product.Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.ProductionDate" class="control-label"></label>
+        <input asp-for="Product.ProductionDate" type="date" class="form-control" />
+        <span asp-validation-for="Product.ProductionDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.FarmerId" class="control-label">Farmer</label>
+        <select asp-for="Product.FarmerId" class="form-control" asp-items="@(new SelectList(Model.Farmers, "Id", "Name"))">
+            <option value="">-- Select Farmer --</option>
+        </select>
+        <span asp-validation-for="Product.FarmerId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

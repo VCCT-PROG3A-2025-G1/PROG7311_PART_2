@@ -1,0 +1,40 @@
+﻿@model PROG7311_PART_2.Models.ProductViewModel
+
+<h2>Add New Product</h2>
+
+<form asp-action="Add" method="post">
+    <div class="form-group">
+        <label asp-for="Product.Name"></label>
+        <input asp-for="Product.Name" class="form-control" />
+        <span asp-validation-for="Product.Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.Category"></label>
+        <input asp-for="Product.Category" class="form-control" />
+        <span asp-validation-for="Product.Category" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Product.ProductionDate"></label>
+        <input asp-for="Product.ProductionDate" class="form-control" type="date" />
+        <span asp-validation-for="Product.ProductionDate" class="text-danger"></span>
+    </div>
+
+    @if (User.IsInRole("Employee"))
+    {
+        <div class="form-group">
+            <label for="Product.FarmerId">Select Farmer</label>
+            <select asp-for="Product.FarmerId" class="form-control" asp-items="@(new SelectList(Model.Farmers, "Id", "Name"))">
+                <option value="">-- Select Farmer --</option>
+            </select>
+            <span asp-validation-for="Product.FarmerId" class="text-danger"></span>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-success">Add Product</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
