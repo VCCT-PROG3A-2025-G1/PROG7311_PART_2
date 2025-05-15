@@ -1,6 +1,17 @@
-﻿@model List<Farmer>
+﻿@model Tuple<List<Farmer>, PROG7311_PART_2.Models.Farmer>
 
-<h2>Farmer List</h2>
+@{
+    ViewData["Title"] = "Farmer List";
+    var farmers = Model.Item1;
+    var newFarmer = Model.Item2;
+}
+
+<h2 class="text-success">Farmer List</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
 
 <table class="table table-striped">
     <thead>
@@ -11,15 +22,14 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var farmer in Model)
+        @foreach (var farmer in farmers)
         {
             <tr>
                 <td>@farmer.Name</td>
-                <td>@farmer.Location</td> <!-- ✅ You were missing this! -->
+                <td>@farmer.Location</td>
                 <td>
-                    <a asp-action="Edit" asp-controller="Farmer" asp-route-id="@farmer.Id" class="btn btn-warning">Edit</a>
-
-                    <form asp-action="Delete" asp-controller="Farmer" asp-route-id="@farmer.Id" method="post" style="display:inline;">
+                    <a asp-action="Edit" asp-route-id="@farmer.Id" class="btn btn-warning">Edit</a>
+                    <form asp-action="Delete" asp-route-id="@farmer.Id" method="post" style="display:inline;">
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this farmer?');">Delete</button>
                     </form>
                 </td>
@@ -30,13 +40,25 @@
 
 <hr />
 
-<h3>Add New Farmer</h3>
+<h3 class="mt-5">Add New Farmer</h3>
+
 <form method="post" asp-action="AddFarmer" asp-controller="Farmer">
-    <div class="form-group">
-        <input type="text" name="Name" class="form-control" placeholder="Farmer Name" required />
+    <div class="form-group mb-2">
+        <label asp-for="@newFarmer.Name" class="form-label"></label>
+        <input asp-for="@newFarmer.Name" class="form-control" />
+        <span asp-validation-for="@newFarmer.Name" class="text-danger"></span>
     </div>
-    <div class="form-group">
-        <input type="text" name="Location" class="form-control" placeholder="Location" required />
+
+    <div class="form-group mb-2">
+        <label asp-for="@newFarmer.Location" class="form-label"></label>
+        <input asp-for="@newFarmer.Location" class="form-control" />
+        <span asp-validation-for="@newFarmer.Location" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Add Farmer</button>
+
+    <button type="submit" class="btn btn-primary">Add Farmer</button>
 </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
