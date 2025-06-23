@@ -1,5 +1,7 @@
 # PROG7311_PART_2
 
+Github Link: https://github.com/JaredAllen777/PROG7311_PART_2
+
 # Agri-Energy Connect
 # Agri-Energy Connect is an ASP.NET Core MVC web application developed for academic purposes.
 # It is designed to manage agricultural product data, enabling two distinct user roles: Farmers and Employees. 
